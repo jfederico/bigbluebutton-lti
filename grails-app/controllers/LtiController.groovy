@@ -16,42 +16,39 @@ import com.ambasadoro.exceptions.AmbasadoroException
 
 import org.lti.api.LTIRoles
 
-import net.oauth.OAuth
-import com.ambasadoro.AmbasadoroService
-
 class LtiController {
     LtiService ltiService
-	AmbasadoroService ambasadoroService
+    AmbasadoroService ambasadoroService
 
-	IEngineFactory ltiEngineFactory = EngineFactory.getInstance()
-	
-    def index = { 
+    IEngineFactory ltiEngineFactory = EngineFactory.getInstance()
+
+    def index = {
         log.debug "###############index###############"
-        toolService.logParameters(params)
+        ambasadoroService.logParameters(params)
     }
 
-    def tool = { 
+    def tool = {
         log.debug "###############tool##############"
-        toolService.logParameters(params)
+        ambasadoroService.logParameters(params)
     }
 
-    def tool_ui = { 
+    def tool_ui = {
         log.debug "###############toolUI##############"
-        toolService.logParameters(params)
+        ambasadoroService.logParameters(params)
     }
-    
+
     def tool_cartridge = {
         log.debug "###############toolCartridge###############"
-        toolService.logParameters(params)
-		
-		try {
-			log.debug "  - Look for the corresponding Ambasadoro instance"
-			Ambasadoro ambasadoro = ltiService.getAmbasadoroInstance(params)
-			Object engineClass = ltiEngineFactory.getEngineClass(ambasadoro)
-			render(text: ambasadoroService.getCartridgeXML(ambasadoro, engineClass), contentType: "text/xml", encoding: "UTF-8")
-		} catch(Exception e) {
-			log.debug "  - Exception: " + e.getMessage()
-		}
-		
-    }        
+        ambasadoroService.logParameters(params)
+
+        try {
+            log.debug "  - Look for the corresponding Ambasadoro instance"
+            Ambasadoro ambasadoro = ltiService.getAmbasadoroInstance(params)
+            ambasadoroService.setEndpoint(ltiService.getEndpoint(params))
+            Object engineClass = ltiEngineFactory.getEngineClass(ambasadoro)
+            render(text: ambasadoroService.getCartridgeXML(ambasadoro, engineClass), contentType: "text/xml", encoding: "UTF-8")
+        } catch(Exception e) {
+            log.debug "  - Exception: " + e.getMessage()
+        }
+    }
 }

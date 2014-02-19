@@ -12,7 +12,7 @@ grails.project.source.level = 1.6
 //]
 
 grails.plugin.location.ambasadoro = "../ambasadoro-plugin"
-grails.plugin.location.bigbluebutton = "../bigbluebutton-plugin"
+grails.plugin.location.bigbluebutton = "../ambasadoro-plugin_bigbluebutton"
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
