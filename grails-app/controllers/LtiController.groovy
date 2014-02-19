@@ -43,8 +43,8 @@ class LtiController {
 
         try {
             log.debug "  - Look for the corresponding Ambasadoro instance"
-            Ambasadoro ambasadoro = ltiService.getAmbasadoroInstance(params)
-            ambasadoroService.setEndpoint(ltiService.getEndpoint(params))
+            Ambasadoro ambasadoro = ltiService.getAmbasadoroInstance()
+            ambasadoroService.setEndpoint(ltiService.getEndpoint(params.get("controller"), "tool"))
             Object engineClass = ltiEngineFactory.getEngineClass(ambasadoro)
             render(text: ambasadoroService.getCartridgeXML(ambasadoro, engineClass), contentType: "text/xml", encoding: "UTF-8")
         } catch(Exception e) {

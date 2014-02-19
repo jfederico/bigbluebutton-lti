@@ -3,8 +3,6 @@ import com.ambasadoro.Ambasadoro
 class LtiService {
     def ltiEndPointServer
     def ltiEndPointApp
-    def ltiEndPointController
-    def ltiEndPointAction
     def ltiKey
     def ltiSecret
 
@@ -27,7 +25,7 @@ class LtiService {
         log.debug "----------------------------------"
     }
 
-    def getAmbasadoroInstance(params) {
+    def getAmbasadoroInstance() {
         if ( !ambasadoro ){
             ambasadoro = new Ambasadoro()
             ambasadoro.ltiKey = ltiKey
@@ -47,13 +45,13 @@ class LtiService {
         return ambasadoro
     }
 
-    def getEndpoint(params){
+    def getEndpoint(controller, action){
         def endpoint = [:]
 
         endpoint.put("server", ltiEndPointServer)
         endpoint.put("app", ltiEndPointApp)
-        endpoint.put("controller", ltiEndPointController)
-        endpoint.put("action", ltiEndPointAction)
+        endpoint.put("controller", controller)
+        endpoint.put("action", action)
 
         return endpoint
     }
